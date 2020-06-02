@@ -2,12 +2,12 @@ import avatarPersonnel from './assets/avatar-personnel.svg'
 
 export const tree = {
   id: 100,
-  person: {
+  entity: {
     id: 100,
     avatar: avatarPersonnel,
-    department: '',
     name: 'Henry monger',
-    title: 'Manager',
+    title: 'IT Department',
+    subTitle: 'CTO',
     totalReports: 3,
   },
   hasChild: true,
@@ -18,12 +18,11 @@ export const tree = {
 export const tree1 = [
   {
     id: 36,
-    person: {
+    entity: {
       id: 36,
       avatar: avatarPersonnel,
-      department: '',
-      name: 'Tomasz polaski',
-      title: 'IT Specialist',
+      name: 'Tomasz Polaski',
+      title: 'IT Manager',
       totalReports: 4,
     },
     hasChild: true,
@@ -32,24 +31,22 @@ export const tree1 = [
   },
   {
     id: 32,
-    person: {
+    entity: {
       id: 32,
       avatar: avatarPersonnel,
-      department: '',
       name: 'Emanuel walker',
       title: 'IT Specialist',
       totalReports: 0,
     },
-    hasChild: true,
+    hasChild: false,
     hasParent: true,
     children: [],
   },
   {
     id: 25,
-    person: {
+    entity: {
       id: 25,
       avatar: avatarPersonnel,
-      department: '',
       name: 'Kerry peter',
       title: 'IT Specialist',
       totalReports: 3,
@@ -63,14 +60,13 @@ export const tree1 = [
 export const tree2 = [
   {
     id: 56,
-    person: {
+    entity: {
       id: 56,
       avatar: avatarPersonnel,
-      department: '',
       name: 'Sam John',
       title: 'HR',
       totalReports: 2,
-      link: 'https://github.com/unicef/react-org-chart',
+      link: 'https://github.com/smartprocure/react-org-chart',
     },
     hasChild: true,
     hasParent: true,
@@ -78,14 +74,13 @@ export const tree2 = [
   },
   {
     id: 66,
-    person: {
+    entity: {
       id: 66,
       avatar: avatarPersonnel,
-      department: '',
       name: 'John doe',
       title: 'Developer',
       totalReports: 0,
-      link: 'https://github.com/unicef/react-org-chart',
+      link: 'https://github.com/smartprocure/react-org-chart',
     },
     hasChild: true,
     hasParent: true,
@@ -93,14 +88,13 @@ export const tree2 = [
   },
   {
     id: 76,
-    person: {
+    entity: {
       id: 76,
       avatar: avatarPersonnel,
-      department: '',
       name: 'Emilia rogers',
       title: 'Developer',
       totalReports: 0,
-      link: 'https://github.com/unicef/react-org-chart',
+      link: 'https://github.com/smartprocure/react-org-chart',
     },
     hasChild: true,
     hasParent: true,
@@ -108,10 +102,9 @@ export const tree2 = [
   },
   {
     id: 60,
-    person: {
+    entity: {
       id: 60,
       avatar: avatarPersonnel,
-      department: '',
       name: 'Ellen cott',
       title: 'IT Officer',
       totalReports: 0,
@@ -125,10 +118,9 @@ export const tree2 = [
 export const tree3 = [
   {
     id: 70,
-    person: {
+    entity: {
       id: 70,
       avatar: avatarPersonnel,
-      department: '',
       name: 'Kenneth dom',
       title: 'IT Officer',
       totalReports: 0,
@@ -139,10 +131,9 @@ export const tree3 = [
   },
   {
     id: 45,
-    person: {
+    entity: {
       id: 45,
       avatar: avatarPersonnel,
-      department: '',
       name: 'Kin baker',
       title: 'IT Officer',
       totalReports: 0,
@@ -156,10 +147,9 @@ export const tree3 = [
 export const tree4 = [
   {
     id: 102,
-    person: {
+    entity: {
       id: 102,
       avatar: avatarPersonnel,
-      department: '',
       name: 'Hendy kinger',
       title: 'Manager',
       totalReports: 0,
@@ -170,10 +160,9 @@ export const tree4 = [
   },
   {
     id: 455,
-    person: {
+    entity: {
       id: 455,
       avatar: avatarPersonnel,
-      department: '',
       name: 'Kate baker',
       title: 'IT Officer',
       totalReports: 0,
@@ -184,10 +173,9 @@ export const tree4 = [
   },
   {
     id: 444,
-    person: {
+    entity: {
       id: 444,
       avatar: avatarPersonnel,
-      department: '',
       name: 'John medis',
       title: 'IT Officer',
       totalReports: 0,
@@ -199,10 +187,9 @@ export const tree4 = [
 
   {
     id: 456,
-    person: {
+    entity: {
       id: 456,
       avatar: avatarPersonnel,
-      department: '',
       name: 'Brett lee',
       title: 'IT Officer',
       totalReports: 0,

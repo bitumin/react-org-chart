@@ -1,3 +1,4 @@
+const _ = require('lodash')
 const d3 = require('d3')
 const { wrapText, helpers, covertImageToBase64 } = require('../utils')
 const renderLines = require('./renderLines')
@@ -6,12 +7,14 @@ const exportOrgChartPdf = require('./exportOrgChartPdf')
 const onClick = require('./onClick')
 const iconLink = require('./components/iconLink')
 const supervisorIcon = require('./components/supervisorIcon')
+
 const CHART_NODE_CLASS = 'org-chart-node'
-const PERSON_LINK_CLASS = 'org-chart-person-link'
-const PERSON_NAME_CLASS = 'org-chart-person-name'
-const PERSON_TITLE_CLASS = 'org-chart-person-title'
-const PERSON_HIGHLIGHT = 'org-chart-person-highlight'
-const PERSON_REPORTS_CLASS = 'org-chart-person-reports'
+const ENTITY_LINK_CLASS = 'org-chart-entity-link'
+const ENTITY_NAME_CLASS = 'org-chart-entity-name'
+const ENTITY_TITLE_CLASS = 'org-chart-entity-title'
+const ENTITY_SUB_TITLE_CLASS = 'org-chart-entity-sub-title'
+const ENTITY_HIGHLIGHT = 'org-chart-entity-highlight'
+const COUNTS_CLASS = 'org-chart-counts'
 
 function render(config) {
   const {
@@ -33,13 +36,28 @@ function render(config) {
     lineDepthY,
     treeData,
     sourceNode,
-    onPersonLinkClick,
+    onEntityLinkClick,
     loadImage,
     downloadImageId,
     downloadPdfId,
     elemWidth,
     margin,
     onConfigChange,
+    nameFontSize = 14,
+    nameTruncateLength = 30,
+    titleFontSize = 13,
+    titleTruncateLength = 18,
+    subTitleFontSize = 14,
+    subTitleTruncateLength = 17,
+    countFontSize = 14,
+    getName,
+    getTitle,
+    getSubTitle,
+    getCount,
+    onNameClick,
+    onTitleClick,
+    onSubTitleClick,
+    onCountClick
   } = config
 
   // Compute the new tree layout.
@@ -80,7 +98,7 @@ function render(config) {
     .attr('transform', `translate(${parentNode.x0}, ${parentNode.y0})`)
     .on('click', onClick(config))
 
-  // Person Card Shadow
+  // Entity Card Shadow
   nodeEnter
     .append('rect')
     .attr('width', nodeWidth)
@@ -93,10 +111,10 @@ function render(config) {
     .attr('stroke-opacity', 0.025)
     .attr('filter', 'url(#boxShadow)')
 
-  // Person Card Container
+  // Entity Card Container
   nodeEnter
     .append('rect')
-    .attr('class', d => (d.isHighlight ? `${PERSON_HIGHLIGHT} box` : 'box'))
+    .attr('class', d => (d.isHighlight ? `${ENTITY_HIGHLIGHT} box` : 'box'))
     .attr('width', nodeWidth)
     .attr('height', nodeHeight)
     .attr('id', d => d.id)
@@ -116,47 +134,88 @@ function render(config) {
     y: nodePaddingY / 2,
   }
 
-  // Person's Name
+  // Entity's Name
   nodeEnter
     .append('text')
-    .attr('class', PERSON_NAME_CLASS + ' unedited')
+    .attr('class', ENTITY_NAME_CLASS + ' unedited')
     .attr('x', namePos.x)
     .attr('y', namePos.y)
     .attr('dy', '.3em')
     .style('cursor', 'pointer')
     .style('fill', nameColor)
-    .style('font-size', 14)
-    .text(d => d.person.name)
-  // .on('click', onParentClick(config))
+    .style('font-size', nameFontSize)
+    .text(d => getName
+      ? getName(d, true, nameTruncateLength)
+      : helpers.getName(d, true, nameTruncateLength))
+    .on('click', data => {
+      if (onNameClick) {
+        d3.event.stopPropagation()
+        onNameClick(data, d3.event)
+      }
+    })
 
-  // Person's Title
+  // Title
   nodeEnter
     .append('text')
-    .attr('class', PERSON_TITLE_CLASS + ' unedited')
+    .attr('class', ENTITY_TITLE_CLASS + ' unedited')
     .attr('x', nodeWidth / 2)
     .attr('y', namePos.y + nodePaddingY * 2.4)
     .attr('dy', '0.1em')
-    .style('font-size', 12)
+    .style('font-size', titleFontSize)
     .style('cursor', 'pointer')
     .style('fill', titleColor)
-    .text(d => d.person.title)
+    .text(d => getTitle
+      ? getTitle(d, true, titleTruncateLength)
+      : helpers.getTitle(d, true, titleTruncateLength))
+    .on('click', data => {
+      if (onTitleClick) {
+        d3.event.stopPropagation()
+        onTitleClick(data, d3.event)
+      }
+    })
 
-  const heightForTitle = 60 // getHeightForText(d.person.title)
+  // SubTitle
+  nodeEnter
+  .append('text')
+  .attr('class', ENTITY_SUB_TITLE_CLASS + ' unedited')
+  .attr('x', nodeWidth / 2)
+  .attr('y', namePos.y + nodePaddingY * 3.9)
+  .attr('dy', '0.1em')
+  .style('font-size', subTitleFontSize)
+  .style('cursor', 'pointer')
+  .style('fill', titleColor)
+  .text(d => getSubTitle
+    ? getSubTitle(d, true, subTitleTruncateLength)
+    : helpers.getSubTitle(d, true, subTitleTruncateLength))
+  .on('click', data => {
+    if (onSubTitleClick) {
+      d3.event.stopPropagation()
+      onSubTitleClick(data, d3.event)
+    }
+  })
 
-  // Person's Reports
+  const heightForTitle = 60 // getHeightForText(d.entity.title)
+
+  // Count
   nodeEnter
     .append('text')
-    .attr('class', PERSON_REPORTS_CLASS)
-    .attr('x', nodePaddingX + 8)
+    .attr('class', COUNTS_CLASS + ' unedited')
+    .attr('x', nodeWidth / 2)
     .attr('y', namePos.y + nodePaddingY + heightForTitle)
     .attr('dy', '.9em')
-    .style('font-size', 14)
+    .style('font-size', countFontSize)
     .style('font-weight', 400)
     .style('cursor', 'pointer')
     .style('fill', reportsColor)
-    .text(helpers.getTextForTitle)
+    .text(d => getCount ? getCount(d, true) : helpers.getCount(d, true))
+    .on('click', data => {
+      if (onCountClick) {
+        d3.event.stopPropagation()
+        onCountClick(data, d3.event)
+      }
+    })
 
-  // Person's Avatar
+  // Entity's Avatar
   nodeEnter
     .append('image')
     .attr('id', d => `image-${d.id}`)
@@ -166,32 +225,31 @@ function render(config) {
     .attr('y', avatarPos.y)
     .attr('stroke', borderColor)
     .attr('s', d => {
-      d.person.hasImage
-        ? d.person.avatar
+      d.entity.hasImage
+        ? d.entity.avatar
         : loadImage(d).then(res => {
             covertImageToBase64(res, function(dataUrl) {
               d3.select(`#image-${d.id}`).attr('href', dataUrl)
-              d.person.avatar = dataUrl
+              d.entity.avatar = dataUrl
             })
-            d.person.hasImage = true
-            return d.person.avatar
+            d.entity.hasImage = true
+            return d.entity.avatar
           })
     })
-    .attr('src', d => d.person.avatar)
-    .attr('href', d => d.person.avatar)
+    .attr('src', d => d.entity.avatar)
+    .attr('href', d => d.entity.avatar)
     .attr('clip-path', 'url(#avatarClip)')
 
-  // Person's Link
+  // Entity's Link
   const nodeLink = nodeEnter
     .append('a')
-    .attr('class', PERSON_LINK_CLASS)
-    .attr('display', d => (d.person.link ? '' : 'none'))
-    .attr('xlink:href', d => d.person.link)
-    .on('click', datum => {
+    .attr('class', ENTITY_LINK_CLASS)
+    .attr('display', d => (d.entity.link ? '' : 'none'))
+    .attr('xlink:href', d => d.entity.link)
+    .on('click', data => {
       d3.event.stopPropagation()
-      // TODO: fire link click handler
-      if (onPersonLinkClick) {
-        onPersonLinkClick(datum, d3.event)
+      if (onEntityLinkClick) {
+        onEntityLinkClick(data, d3.event)
       }
     })
 
@@ -223,10 +281,20 @@ function render(config) {
   // Update the links
   const link = svg.selectAll('path.link').data(links, d => d.target.id)
 
-  // Wrap the title texts
+  // Wrap the texts
   const wrapWidth = 124
-  svg.selectAll('text.unedited.' + PERSON_NAME_CLASS).call(wrapText, wrapWidth)
-  svg.selectAll('text.unedited.' + PERSON_TITLE_CLASS).call(wrapText, wrapWidth)
+  _.each(
+    [ENTITY_NAME_CLASS, ENTITY_TITLE_CLASS, ENTITY_SUB_TITLE_CLASS, COUNTS_CLASS],
+    cssClass => {
+      svg.selectAll(`text.unedited.${cssClass}`).call(wrapText, wrapWidth)
+    }
+  )
+
+  // Add Tooltips
+  svg.selectAll(`text.${ENTITY_NAME_CLASS}`).append('svg:title').text(d => getName ? getName(d, false) : helpers.getName(d, false))
+  svg.selectAll(`text.${ENTITY_TITLE_CLASS}`).append('svg:title').text(d => getTitle ? getTitle(d, false) : helpers.getTitle(d, false))
+  svg.selectAll(`text.${ENTITY_SUB_TITLE_CLASS}`).append('svg:title').text(d => getSubTitle ? getSubTitle(d, false) : helpers.getSubTitle(d, false))
+  svg.selectAll(`text.${COUNTS_CLASS}`).append('svg:title').text(d => getCount ? getCount(d, false) : helpers.getCount(d, false))
 
   // Render lines connecting nodes
   renderLines(config)

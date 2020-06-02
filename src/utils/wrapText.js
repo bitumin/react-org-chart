@@ -2,7 +2,7 @@ const d3 = require('d3')
 
 // One way of achieving text-wrapping capability in SVG
 module.exports = function wrapText(text, width) {
-  if (text.length === 0) {
+  if (!text.length) {
     return ''
   }
 

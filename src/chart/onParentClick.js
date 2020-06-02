@@ -7,7 +7,7 @@ function onParentClick(configOnClick, children) {
   const config = loadConfig()
   const { loadParent } = config
 
-  // If this person have `hasParent` is true,
+  // If this entity have `hasParent` is true,
   // attempt to load using the `loadParent` config function
   if (children.hasParent) {
     if (!loadParent) {
