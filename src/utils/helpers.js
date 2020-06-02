@@ -1,52 +1,36 @@
-module.exports = {
-  getTextForTitle,
-  getTextForDepartment,
-  getCursorForNode,
+let _ = require('lodash')
+
+let getName = (data, truncate=true, length=30) =>
+  truncate
+    ? _.truncate(_.get(data, 'entity.name'), {length})
+    : _.get(data, 'entity.name')
+
+let getTitle = (data, truncate=true, length=18) =>
+  truncate
+    ? _.truncate(_.get(data, 'entity.title'), {length})
+    : _.get(data, 'entity.title')
+
+let getSubTitle = (data, truncate=true, length=17) =>
+  truncate
+    ? _.truncate(_.get(data, 'entity.subTitle'), {length})
+    : _.get(data, 'entity.subTitle')
+
+let getCount = data => {
+  let count = _.get(data, 'entity.totalReports')
+  if (!count) { return '' }
+  let pluralEnding = count > 1 ? 's' : ''
+  return `${count} supervisee${pluralEnding}`
 }
 
-function getTextForTitle(datum) {
-  if (!datum.person || !datum.person.totalReports) {
-    return ''
-  }
-
-  const {
-    person: { totalReports },
-  } = datum
-  const pluralEnding = totalReports > 1 ? 's' : ''
-
-  return `${totalReports} supervisee${pluralEnding}`
-}
-
-const departmentAbbrMap = {
-  Marketing: 'mktg',
-  Operations: 'ops',
-  Growth: 'gwth',
-  Branding: 'brand',
-  Assurance: 'fin',
-  Data: 'data',
-  Design: 'design',
-  Communications: 'comms',
-  Product: 'prod',
-  People: 'people',
-  Sales: 'sales',
-}
-
-function getTextForDepartment(datum) {
-  if (!datum.person.department) {
-    return ''
-  }
-
-  const { department } = datum.person
-
-  if (departmentAbbrMap[department]) {
-    return departmentAbbrMap[department].toUpperCase()
-  }
-
-  return datum.person.department.substring(0, 3).toUpperCase()
-}
-
-function getCursorForNode(datum) {
-  return datum.children || datum._children || datum.hasChild
+let getCursorForNode = data =>
+  data.children || data._children || data.hasChild
     ? 'pointer'
     : 'default'
+
+module.exports = {
+  getName,
+  getTitle,
+  getSubTitle,
+  getCount,
+  getCursorForNode,
 }

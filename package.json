@@ -1,6 +1,6 @@
 {
-  "name": "@unicef/react-org-chart",
-  "version": "0.3.4",
+  "name": "@smartprocure/react-org-chart",
+  "version": "0.1.0",
   "description": "Simple, high-performance react component for d3 org chart",
   "main": "dist/index.js",
   "directories": {
@@ -21,7 +21,7 @@
     "deploy": "cd examples && npm run deploy"
   },
   "keywords": [],
-  "author": "UNICEF, based on work of Fouad Matin <m@fouad.org>",
+  "author": "SmartProcure, based on work of Fouad Matin <m@fouad.org> and UNICEF",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",

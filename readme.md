@@ -3,48 +3,68 @@
 
 React component for displaying organizational charts.
 
-This component is based on [coreseekdev/react-org-chart](https://github.com/coreseekdev/react-org-chart). On top of it, we added a few customization to fulfill our requirements.
-
-### [View demo](https://unicef.github.io/react-org-chart/)
-
+This component is based on [unicef/react-org-chart](https://github.com/unicef/react-org-chart).
 
 # Features
 
-From the original package:
+From the previous package:
 
 - High-performance D3-based SVG rendering
 - Lazy-load children with a custom function
 - Handle up to 1 million collapsed nodes and 5,000 expanded nodes
 - Pan (drag and drop)
 - Zoom in zoom out (with mouse wheel/scroll)
+- Lazy-load of parents (go up in the tree)
+- Zoom in, zoom out and zoom buttons.
+- Download org chart as image or PDF
 
 What we added:
 
-- Lazy-load of parents (go up in the tree)
-- Zoom in, zoom out and zoom buttons.
-- Download orgchart as image or PDF
+- Changed component to be `React.Component` vs `React.PureComponent`
+- Renamed `person` to `entity` throughout the codebase
+- Removed `department`
+- Added `subTitle` text element under the `title`.
+- Added config props functions to get all the text values (`getName`, `getTitle`, `getSubTitle`, `getCount`)
+- Added config props for all text values on click events (`onNameClick`, `onTitleClick`, `onSubTitleClick`, `onCountClick`)
+- Added config props for the font sizes (`nameFontSize`, `titleFontSize`, `subTitleFontSize`, `countFontSize`)
+- Added config props for the text truncation (`nameTruncateLength`, `titleTruncateLength`, `subTitleTruncateLength`)
+- Added tooltips to all text values since we now support truncation
 
 ### React Props
 
-| **property**      | **type**   | **description**                                                           | **example**                                                        |
-| ----------------- | ---------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| tree              | `Object`   | Nested data model with some of all the employees in the company (Required)     | See sample below. |
-| nodeWidth         | `Number`   | Width of the component for each individual (Optional)                     | 180                                                                |
-| nodeHeight        | `Number`   | Height of the component for each individual (Optional)                    | 100                                                                |
-| nodeSpacing       | `Number`   | Spacing between each of the nodes in the chart (Optional)                 | 12                                                                 |
-| animationDuration | `Number`   | Duration of the animations in milliseconds (Optional)                     | 350                                                                |
-| lineType          | `String`   | Type of line that connects the nodes to each other (Optional)             | “angle” “curve”                                                    |
-| downloadImageId   | `String`   | Id of the DOM element that, on click, will trigger the download of the org chart as PNG. OrgChart will bind the click event to the DOM element with this ID (Optional) | "download-image" (default)                                         |
-| downloadPdfId     | `String`   | Id of the DOM element that, on click, will trigger the download of the org chart as PDF. OrgChart will bind the click event to the DOM element with this ID (Optional)  (Optional)        | "download-pdf" (default)                                           |
-| zoomInId          | `String`   | Id of the DOM element that, on click, will trigger a zoom of the org chart. OrgChart will bind the click event to the DOM element with this ID (Optional)  (Optional)                                     | "zoom-in" (default)                                                |
-| zoomOutId         | `String`   | Id of the DOM element that, on click, will trigger the zoom out of the org chart. OrgChart will bind the click event to the DOM element with this ID (Optional)                                  | "zoom-out" (default)                                               |
-| zoomExtentId      | `String`   | Id of the DOM element that, on click, will display whole org chart svg fit to screen. OrgChart will bind the click event to the DOM element with this ID(Optional)                              | "zoom-extent" (default)                                            |
-| loadParent(personData)        | `Function` | Load parent with one level of children (Optional)                         | See usage below                                                  |
-| loadChildren (personData)      | `Function` | Load the children of particular node (Optional)                           | See usage below                                                  |
-| onConfigChange    | `Function` | To set the latest config to state on change                               | See usage below                                                  |
-| loadConfig        | `Function` | Pass latest config from state to OrgChart                                    | See usage below                                                  |
-| loadImage(personData)         | `Function` | To get image of person on API call (Optional)                             | See usage below                                                  |
-
+| **Property**      | **Type**   | **Required** | **Description**                                            | **Default / Example**                                                        |
+| ----------------- | ---------- | -------------|----------------------------------------------------------- | ------------------------------------------------------------------ |
+| tree              | `Object`   | Required | Nested data model with some of all the employees in the company | See sample below |
+| onConfigChange    | `Function` | Required | To set the latest config to state on change                    | See usage below                                         |
+| loadConfig        | `Function` | Required | Pass latest config from state to OrgChart                      | See usage below                                      |
+| getName           | `Function` | Optional | Function to get custom formatting / values for the name. Called with (`data`, `truncate`, `truncateLength`) arguments | See usage below |
+| getTitle          | `Function` | Optional | Function to get custom formatting / values for the title. Called with (`data`, `truncate`, `truncateLength`) arguments | See usage below |
+| getSubTitle       | `Function` | Optional | Function to get custom formatting / values for the sub title. Called with (`data`, `truncate`, `truncateLength`) arguments | See usage below |
+| getCount          | `Function` | Optional | Function to get custom formatting / values for the count. Called with (`data`, `truncate`, `truncateLength`) arguments | See usage below |
+| onNameClick       | `Function` | Optional | Function to call on click of the name. Called with (`data`) arguments | See usage below |
+| onTitleClick      | `Function` | Optional | Function to call on click of the title. Called with (`data`) arguments | See usage below |
+| onSubTitleClick   | `Function` | Optional | Function to call on click of the sub title. Called with (`data`) arguments | See usage below |
+| onCountClick      | `Function` | Optional | Function to call on click of the count. Called with (`data`) arguments | See usage below |
+| nameFontSize      | `Number`   | Optional | The font size of the name text element                         | 14                                                                |
+| titleFontSize     | `Number`   | Optional | The font size of the title text element                        | 13                                                                |
+| subTitleFontSize  | `Number`   | Optional | The font size of the title text element                        | 14                                                                |
+| countFontSize     | `Number`   | Optional | The font size of the count text element                        | 14                                                                |
+| nameTruncateLength | `Number`   | Optional | The number of characters before we truncate the name. Name spans 2 lines.           | 30                                           |
+| titleTruncateLength | `Number`   | Optional | The number of characters before we truncate the title. Title is one line only.     | 18                                           |
+| subTitleTruncateLength | `Number`   | Optional | The number of characters before we truncate the sub title. Title is one line only.     | 17                                           |
+| nodeWidth         | `Number`   | Optional | Width of the component for each individual                     | 180                                                                |
+| nodeHeight        | `Number`   | Optional | Height of the component for each individual                    | 100                                                                |
+| nodeSpacing       | `Number`   | Optional | Spacing between each of the nodes in the chart                 | 12                                                                 |
+| animationDuration | `Number`   | Optional | Duration of the animations in milliseconds                     | 350                                                                |
+| lineType          | `String`   | Optional | Type of line that connects the nodes to each other             | “angle” “curve”                                                    |
+| downloadImageId   | `String`   | Optional | Id of the DOM element that, on click, will trigger the download of the org chart as PNG. OrgChart will bind the click event to the DOM element with this ID | "download-image" (default)                                         |
+| downloadPdfId     | `String`   | Optional | Id of the DOM element that, on click, will trigger the download of the org chart as PDF. OrgChart will bind the click event to the DOM element with this ID        | "download-pdf" (default)                                           |
+| zoomInId          | `String`   | Optional | Id of the DOM element that, on click, will trigger a zoom of the org chart. OrgChart will bind the click event to the DOM element with this ID                                      | "zoom-in" (default)                                                |
+| zoomOutId         | `String`   | Optional | Id of the DOM element that, on click, will trigger the zoom out of the org chart. OrgChart will bind the click event to the DOM element with this ID                                   | "zoom-out" (default)                                               |
+| zoomExtentId      | `String`   | Optional |Id of the DOM element that, on click, will display whole org chart svg fit to screen. OrgChart will bind the click event to the DOM element with this ID(Optional)                              | "zoom-extent" (default)                                            |
+| loadParent(personData)        | `Function` | Optional | Load parent with one level of children                         | See usage below                                                  |
+| loadChildren (personData)      | `Function` | Optional | Load the children of particular node                           | See usage below                                                  |
+| loadImage(personData)         | `Function` | Optional | To get image of person on API call                            | See usage below                                                  |
 
 
 ### Sample tree data
@@ -53,12 +73,12 @@ What we added:
 
 {
   id: 1,
-  person: {
+  entity: {
     id: 1,
     avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/spbroma/128.jpg',
-    department: '',
     name: 'Jane Doe',
-    title: 'CEO',
+    title: 'IT',
+    subTitle: 'CEO',
     totalReports: 5
   },
   hasChild: true,
@@ -67,10 +87,9 @@ What we added:
   children: [
     {
     id: 2,
-    person: {
+    entity: {
       id: 2,
       avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/spbroma/128.jpg',
-      department: '',
       name: 'John Foo',
       title: 'CTO',
       totalReports: 0
@@ -88,7 +107,7 @@ What we added:
 
 ### Usage
 
-You have a complete working example in the **[examples/](https://github.com/unicef/react-org-chart/tree/master/examples)** folder 
+You have a complete working example in the **[examples/](https://github.com/smartprocure/react-org-chart/tree/master/examples)** folder
 
 ```jsx
 import React from 'react'
@@ -110,7 +129,7 @@ render(){
         this.setState({ config: config })
       }}
       loadConfig={d => {
-         // Called from d3 to get latest version of the config. 
+         // Called from d3 to get latest version of the config.
         const config = this.handleLoadConfig(d)
         return config
       }}
@@ -129,6 +148,10 @@ render(){
         const image = getImage(personData.email)
         return Promise.resolve(image)
       }}
+      // getTitle / getSubTitle / getCount work the same way & with the same args
+      getName={(data, truncate, truncateLength) => `The great ${data.person.name}${truncate}`}
+      // onTitleClick / onSubTitleClick / onCountClick work the same way  & with the same arg
+      onNameClick={data => console.log(data.person.name)}
     />
   )
 }
@@ -169,22 +192,11 @@ To deploy the example to gh-pages site
 npm run deploy
 ```
 
-## About UNICEF
-
-[UNICEF](https://www.unicef.org/) works in over 190 countries and territories to protect the rights of every child. UNICEF has spent more than 70 years working to improve the lives of children and their families. In UNICEF, we **believe all children have a right to survive, thrive and fulfill their potential – to the benefit of a better world**.
-
-[Donate](https://donate.unicef.org/donate/now)
-
-
 ## Collaborations and support
 
-Just fork the project and make a pull request. You may also [consider donating](https://donate.unicef.org/donate/now).
-
+Just fork the project and make a pull request.
 
 # License
-
-Copyright 2019-2020 UNICEF http://www.unicef.org
-Developed by ICTD, Solutions Center and Support, Digital Tools and Platforms, Custom Applications Team, New York.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

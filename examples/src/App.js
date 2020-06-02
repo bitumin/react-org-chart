@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css'
+import _ from 'lodash'
 import OrgChart from '@unicef/react-org-chart'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { tree, tree1, tree2, tree3, tree4 } from './Tree'
@@ -36,7 +37,7 @@ export default class App extends React.Component {
     if (d.id === 100) {
       return {
         id: 500,
-        person: {
+        entity: {
           id: 500,
           avatar: avatarPersonnel,
           department: '',
@@ -51,7 +52,7 @@ export default class App extends React.Component {
     } else if (d.id === 500) {
       return {
         id: 1,
-        person: {
+        entity: {
           id: 1,
           avatar: avatarPersonnel,
           department: '',
@@ -82,7 +83,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { tree, downloadingChart } = this.state
+    const { tree, config, downloadingChart } = this.state
 
     //For downloading org chart as image or pdf based on id
     const downloadImageId = 'download-image'
