@@ -20,7 +20,6 @@ From the previous package:
 
 What we added:
 
-- Changed component to be `React.Component` vs `React.PureComponent`
 - Renamed `person` to `entity` throughout the codebase
 - Removed `department`
 - Added `subTitle` text element under the `title`.

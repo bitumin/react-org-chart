@@ -1,11 +1,11 @@
-const React = require('react')
+const { createElement, PureComponent } = require('react')
 const { init } = require('../chart')
 
-class OrgChart extends React.Component {
+class OrgChart extends PureComponent {
   render() {
     const { id } = this.props
 
-    return React.createElement('div', { id })
+    return createElement('div', { id })
   }
 
   static defaultProps = {
