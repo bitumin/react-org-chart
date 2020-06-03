@@ -1,12 +1,12 @@
-const _ = require('lodash')
-const d3 = require('d3')
-const { wrapText, helpers, covertImageToBase64 } = require('../utils')
-const renderLines = require('./renderLines')
-const exportOrgChartImage = require('./exportOrgChartImage')
-const exportOrgChartPdf = require('./exportOrgChartPdf')
-const onClick = require('./onClick')
-const iconLink = require('./components/iconLink')
-const supervisorIcon = require('./components/supervisorIcon')
+let _ = require('lodash')
+let d3 = require('d3')
+let { wrapText, helpers, covertImageToBase64 } = require('../utils')
+let renderLines = require('./renderLines')
+let exportOrgChartImage = require('./exportOrgChartImage')
+let exportOrgChartPdf = require('./exportOrgChartPdf')
+let onClick = require('./onClick')
+let iconLink = require('./components/iconLink')
+let supervisorIcon = require('./components/supervisorIcon')
 
 const CHART_NODE_CLASS = 'org-chart-node'
 const ENTITY_LINK_CLASS = 'org-chart-entity-link'
@@ -60,9 +60,13 @@ function render(config) {
     onCountClick
   } = config
 
+  // Reset nodes/links
+  tree.nodes([])
+  tree.links([])
+
   // Compute the new tree layout.
-  const nodes = tree.nodes(treeData).reverse()
-  const links = tree.links(nodes)
+  let nodes = tree.nodes(treeData).reverse()
+  let links = tree.links(nodes)
 
   config.links = links
   config.nodes = nodes
@@ -73,12 +77,12 @@ function render(config) {
   })
 
   // Update the nodes
-  const node = svg.selectAll('g.' + CHART_NODE_CLASS).data(
+  let node = svg.selectAll('g.' + CHART_NODE_CLASS).data(
     nodes.filter(d => d.id),
     d => d.id
   )
 
-  const parentNode = sourceNode || treeData
+  let parentNode = sourceNode || treeData
 
   svg.selectAll('#supervisorIcon').remove()
 
@@ -91,7 +95,7 @@ function render(config) {
   })
 
   // Enter any new nodes at the parent's previous position.
-  const nodeEnter = node
+  let nodeEnter = node
     .enter()
     .insert('g')
     .attr('class', CHART_NODE_CLASS)
@@ -124,12 +128,12 @@ function render(config) {
     .attr('ry', nodeBorderRadius)
     .style('cursor', helpers.getCursorForNode)
 
-  const namePos = {
+  let namePos = {
     x: nodeWidth / 2,
     y: nodePaddingY * 1.8 + avatarWidth,
   }
 
-  const avatarPos = {
+  let avatarPos = {
     x: nodeWidth / 2 - avatarWidth / 2,
     y: nodePaddingY / 2,
   }
@@ -241,7 +245,7 @@ function render(config) {
     .attr('clip-path', 'url(#avatarClip)')
 
   // Entity's Link
-  const nodeLink = nodeEnter
+  let nodeLink = nodeEnter
     .append('a')
     .attr('class', ENTITY_LINK_CLASS)
     .attr('display', d => (d.entity.link ? '' : 'none'))
@@ -260,7 +264,7 @@ function render(config) {
   })
 
   // Transition nodes to their new position.
-  const nodeUpdate = node
+  let nodeUpdate = node
     .transition()
     .duration(animationDuration)
     .attr('transform', d => `translate(${d.x},${d.y})`)
@@ -271,7 +275,7 @@ function render(config) {
     .attr('stroke', borderColor)
 
   // Transition exiting nodes to the parent's new position.
-  const nodeExit = node
+  let nodeExit = node
     .exit()
     .transition()
     .duration(animationDuration)
@@ -279,7 +283,7 @@ function render(config) {
     .remove()
 
   // Update the links
-  const link = svg.selectAll('path.link').data(links, d => d.target.id)
+  let link = svg.selectAll('path.link').data(links, d => d.target.id)
 
   // Wrap the texts
   const wrapWidth = 124

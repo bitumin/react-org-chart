@@ -15,6 +15,7 @@ class OrgChart extends PureComponent {
     zoomInId: 'zoom-in',
     zoomOutId: 'zoom-out',
     zoomExtentId: 'zoom-extent',
+    tree: {}
   }
 
   componentDidMount() {
