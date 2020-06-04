@@ -83,15 +83,16 @@ function init(options) {
     .attr('width', elemWidth)
     .attr('height', elemHeight)
 
+  // Graph center point
+  const centerPoint = childrenWidth + (elemWidth - childrenWidth * 2) / 2 - nodeWidth / 2
+
   // Add our base svg group to transform when a user zooms/pans
   const svg = svgroot
     .append('g')
     .attr(
       'transform',
       'translate(' +
-        parseInt(
-          childrenWidth + (elemWidth - childrenWidth * 2) / 2 - nodeWidth / 2
-        ) +
+        centerPoint +
         ',' +
         48 +
         ')'
@@ -129,12 +130,7 @@ function init(options) {
   svgroot.call(zoom)
 
   // Define the point of origin for zoom transformations
-  zoom.translate([
-    parseInt(
-      childrenWidth + (elemWidth - childrenWidth * 2) / 2 - margin.left / 2
-    ),
-    20,
-  ])
+  zoom.translate([ centerPoint, 20 ])
 
   // Zoom update
   function zoomed() {
