@@ -90,7 +90,7 @@ function init(options) {
       'transform',
       'translate(' +
         parseInt(
-          childrenWidth + (elemWidth - childrenWidth * 2) / 2 - margin.left / 2
+          childrenWidth + (elemWidth - childrenWidth * 2) / 2 - nodeWidth / 2
         ) +
         ',' +
         48 +

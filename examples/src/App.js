@@ -13,7 +13,6 @@ export default class App extends React.Component {
       tree: tree,
       downloadingChart: false,
       config: {},
-      highlightPostNumbers: [1],
     }
   }
 
