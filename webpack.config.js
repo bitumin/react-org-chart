@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const { resolve } = require('path')
 
 module.exports = {
-  name: '@unicef/react-org-chart',
+  name: '@smartprocure/react-org-chart',
   devtool: 'source-map',
   entry: './src/index.js',
   output: {
@@ -11,7 +11,7 @@ module.exports = {
     sourceMapFilename: './index.js.map',
     pathinfo: true,
     path: resolve(__dirname, 'dist'),
-    library: '@unicef/react-org-chart',
+    library: '@smartprocure/react-org-chart',
     libraryTarget: 'commonjs2',
   },
   module: {

@@ -6,33 +6,8 @@ const render = require('./render')
 const defaultConfig = require('./config')
 
 module.exports = {
-  initComponent,
+  init,
 }
-
-function initComponent(props) {
-  const {
-    id,
-    downloadImageId,
-    downloadPdfId,
-    zoomInId,
-    zoomOutId,
-    zoomExtentId,
-    tree,
-    ...options
-  } = props
-
-  init({
-    id: `#${id}`,
-    downloadImageId: `#${downloadImageId}`,
-    downloadPdfId: `#${downloadPdfId}`,
-    zoomInId: zoomInId,
-    zoomOutId: zoomOutId,
-    zoomExtentId: zoomExtentId,
-    data: tree,
-    ...options,
-  })
-}
-
 
 function init(options) {
   // Merge options with the default config
@@ -279,18 +254,21 @@ function init(options) {
   // Update DOM root height
   d3.select(id).style('height', elemHeight + margin.top + margin.bottom)
 
-  //creating  canvas and duplicate svg for image and PDF download
-  const canvasContainer = document.createElement('div')
-  canvasContainer.setAttribute('id', `${id}-canvas-container`)
-  canvasContainer.setAttribute('style', 'display:none;')
-
-  //duplicate svg container
-  const svgContainer = document.createElement('div')
-  svgContainer.setAttribute('id', `${id}-svg-container`)
-  svgContainer.setAttribute('style', 'display:none;')
-
-  //appending svg and canvas containers to root
+  // Get the root
   const orgChart = document.getElementById('root')
-  orgChart.append(canvasContainer)
-  orgChart.append(svgContainer)
+
+  if (!document.getElementById(`${id}-canvas-container`)) {
+    // Creating  canvas and duplicate svg for image and PDF download
+    const canvasContainer = document.createElement('div')
+    canvasContainer.setAttribute('id', `${id}-canvas-container`)
+    canvasContainer.setAttribute('style', 'display:none;')
+    orgChart.append(canvasContainer)
+  }
+  if (!document.getElementById(`${id}-svg-container`)) {
+    // Duplicate svg container
+    const svgContainer = document.createElement('div')
+    svgContainer.setAttribute('id', `${id}-svg-container`)
+    svgContainer.setAttribute('style', 'display:none;')
+    orgChart.append(svgContainer)
+  }
 }
