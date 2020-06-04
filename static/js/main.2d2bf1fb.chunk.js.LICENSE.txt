@@ -16,8 +16,6 @@
 
 /*! ./../webpack/buildin/module.js */
 
-/*! ./chart */
-
 /*! ./collapse */
 
 /*! ./components/iconLink */
