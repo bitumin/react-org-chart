@@ -1,6 +1,6 @@
 import avatarPersonnel from './assets/avatar-personnel.svg'
 
-export const tree = {
+export const tree1 = {
   id: 100,
   entity: {
     id: 100,
@@ -12,11 +12,7 @@ export const tree = {
   },
   hasChild: true,
   hasParent: true,
-  children: [],
-}
-
-export const tree1 = [
-  {
+  children: [{
     id: 36,
     entity: {
       id: 36,
@@ -27,7 +23,86 @@ export const tree1 = [
     },
     hasChild: true,
     hasParent: true,
-    // children: [],
+    children: [{
+      id: 56,
+      entity: {
+        id: 56,
+        avatar: avatarPersonnel,
+        name: 'Foo Boo',
+        title: 'HR',
+        totalReports: 2,
+        link: 'https://github.com/smartprocure/react-org-chart',
+      },
+      hasChild: true,
+      hasParent: true,
+      children: [{
+        id: 70,
+        entity: {
+          id: 70,
+          avatar: avatarPersonnel,
+          name: 'Kenneth dom',
+          title: 'IT Officer',
+          totalReports: 0,
+        },
+        hasChild: false,
+        hasParent: true,
+        children: [],
+      },
+      {
+        id: 45,
+        entity: {
+          id: 45,
+          avatar: avatarPersonnel,
+          name: 'Kin baker',
+          title: 'IT Officer',
+          totalReports: 0,
+        },
+        hasChild: false,
+        hasParent: true,
+        children: [],
+      }],
+    },
+    {
+      id: 66,
+      entity: {
+        id: 66,
+        avatar: avatarPersonnel,
+        name: 'John doe',
+        title: 'Developer',
+        totalReports: 0,
+        link: 'https://github.com/smartprocure/react-org-chart',
+      },
+      hasChild: true,
+      hasParent: true,
+      children: [],
+    },
+    {
+      id: 76,
+      entity: {
+        id: 76,
+        avatar: avatarPersonnel,
+        name: 'Emilia rogers',
+        title: 'Developer',
+        totalReports: 0,
+        link: 'https://github.com/smartprocure/react-org-chart',
+      },
+      hasChild: true,
+      hasParent: true,
+      children: [],
+    },
+    {
+      id: 60,
+      entity: {
+        id: 60,
+        avatar: avatarPersonnel,
+        name: 'Ellen cott',
+        title: 'IT Officer',
+        totalReports: 0,
+      },
+      hasChild: false,
+      hasParent: true,
+      children: [],
+    }],
   },
   {
     id: 32,
@@ -53,118 +128,146 @@ export const tree1 = [
     },
     hasChild: true,
     hasParent: true,
-    // children: [],
-  },
-]
-
-export const tree2 = [
-  {
-    id: 56,
-    entity: {
-      id: 56,
-      avatar: avatarPersonnel,
-      name: 'Sam John',
-      title: 'HR',
-      totalReports: 2,
-      link: 'https://github.com/smartprocure/react-org-chart',
-    },
-    hasChild: true,
-    hasParent: true,
-    // children: [],
-  },
-  {
-    id: 66,
-    entity: {
-      id: 66,
-      avatar: avatarPersonnel,
-      name: 'John doe',
-      title: 'Developer',
-      totalReports: 0,
-      link: 'https://github.com/smartprocure/react-org-chart',
-    },
-    hasChild: true,
-    hasParent: true,
-    children: [],
-  },
-  {
-    id: 76,
-    entity: {
-      id: 76,
-      avatar: avatarPersonnel,
-      name: 'Emilia rogers',
-      title: 'Developer',
-      totalReports: 0,
-      link: 'https://github.com/smartprocure/react-org-chart',
-    },
-    hasChild: true,
-    hasParent: true,
-    children: [],
-  },
-  {
-    id: 60,
-    entity: {
-      id: 60,
-      avatar: avatarPersonnel,
-      name: 'Ellen cott',
-      title: 'IT Officer',
-      totalReports: 0,
-    },
-    hasChild: false,
-    hasParent: true,
-    children: [],
-  },
-]
-
-export const tree3 = [
-  {
-    id: 70,
-    entity: {
-      id: 70,
-      avatar: avatarPersonnel,
-      name: 'Kenneth dom',
-      title: 'IT Officer',
-      totalReports: 0,
-    },
-    hasChild: false,
-    hasParent: true,
-    children: [],
-  },
-  {
-    id: 45,
-    entity: {
-      id: 45,
-      avatar: avatarPersonnel,
-      name: 'Kin baker',
-      title: 'IT Officer',
-      totalReports: 0,
-    },
-    hasChild: false,
-    hasParent: true,
-    children: [],
-  },
-]
-
-export const tree4 = [
-  {
-    id: 102,
-    entity: {
+    children: [{
       id: 102,
+      entity: {
+        id: 102,
+        avatar: avatarPersonnel,
+        name: 'Hendy kinger',
+        title: 'Manager',
+        totalReports: 0,
+      },
+      hasChild: true,
+      hasParent: true,
+      children: [],
+    },
+    {
+      id: 455,
+      entity: {
+        id: 455,
+        avatar: avatarPersonnel,
+        name: 'Kate baker',
+        title: 'IT Officer',
+        totalReports: 0,
+      },
+      hasChild: false,
+      hasParent: true,
+      children: [],
+    },
+    {
+      id: 444,
+      entity: {
+        id: 444,
+        avatar: avatarPersonnel,
+        name: 'John medis',
+        title: 'IT Officer',
+        totalReports: 0,
+      },
+      hasChild: false,
+      hasParent: true,
+      children: [],
+    }],
+  }],
+}
+
+export const tree2 = {
+  id: 300,
+  entity: {
+    id: 300,
+    avatar: avatarPersonnel,
+    name: 'Thor',
+    title: 'AAA Department',
+    subTitle: 'CTO',
+    totalReports: 2,
+  },
+  hasChild: true,
+  hasParent: true,
+  children: [{
+    id: 336,
+    entity: {
+      id: 336,
       avatar: avatarPersonnel,
-      name: 'Hendy kinger',
-      title: 'Manager',
-      totalReports: 0,
+      name: 'John Polaski',
+      title: 'IT Manager',
+      totalReports: 4,
     },
     hasChild: true,
     hasParent: true,
-    children: [],
+    children: [{
+      id: 356,
+      entity: {
+        id: 356,
+        avatar: avatarPersonnel,
+        name: 'Sam John',
+        title: 'HR',
+        totalReports: 1,
+        link: 'https://github.com/smartprocure/react-org-chart',
+      },
+      hasChild: true,
+      hasParent: true,
+      children: [{
+        id: 370,
+        entity: {
+          id: 370,
+          avatar: avatarPersonnel,
+          name: 'Kenneth dom',
+          title: 'IT Officer',
+          totalReports: 0,
+        },
+        hasChild: false,
+        hasParent: true,
+        children: [],
+      },],
+    },
+    {
+      id: 366,
+      entity: {
+        id: 366,
+        avatar: avatarPersonnel,
+        name: 'John doe',
+        title: 'Developer',
+        totalReports: 0,
+        link: 'https://github.com/smartprocure/react-org-chart',
+      },
+      hasChild: true,
+      hasParent: true,
+      children: [],
+    },
+    {
+      id: 376,
+      entity: {
+        id: 376,
+        avatar: avatarPersonnel,
+        name: 'Emilia rogers',
+        title: 'Developer',
+        totalReports: 0,
+        link: 'https://github.com/smartprocure/react-org-chart',
+      },
+      hasChild: true,
+      hasParent: true,
+      children: [],
+    },
+    {
+      id: 360,
+      entity: {
+        id: 360,
+        avatar: avatarPersonnel,
+        name: 'Ellen cott',
+        title: 'IT Officer',
+        totalReports: 0,
+      },
+      hasChild: false,
+      hasParent: true,
+      children: [],
+    }],
   },
   {
-    id: 455,
+    id: 332,
     entity: {
-      id: 455,
+      id: 332,
       avatar: avatarPersonnel,
-      name: 'Kate baker',
-      title: 'IT Officer',
+      name: 'Emanuel walker',
+      title: 'IT Specialist',
       totalReports: 0,
     },
     hasChild: false,
@@ -172,30 +275,54 @@ export const tree4 = [
     children: [],
   },
   {
-    id: 444,
+    id: 325,
     entity: {
-      id: 444,
+      id: 325,
       avatar: avatarPersonnel,
-      name: 'John medis',
-      title: 'IT Officer',
-      totalReports: 0,
+      name: 'Kerry peter',
+      title: 'IT Specialist',
+      totalReports: 3,
     },
-    hasChild: false,
+    hasChild: true,
     hasParent: true,
-    children: [],
-  },
-
-  {
-    id: 456,
-    entity: {
-      id: 456,
-      avatar: avatarPersonnel,
-      name: 'Brett lee',
-      title: 'IT Officer',
-      totalReports: 0,
+    children: [{
+      id: 2102,
+      entity: {
+        id: 2102,
+        avatar: avatarPersonnel,
+        name: 'Hendy kinger',
+        title: 'Manager',
+        totalReports: 0,
+      },
+      hasChild: true,
+      hasParent: true,
+      children: [],
     },
-    hasChild: false,
-    hasParent: true,
-    children: [],
-  },
-]
+    {
+      id: 1455,
+      entity: {
+        id: 1455,
+        avatar: avatarPersonnel,
+        name: 'Kate baker',
+        title: 'IT Officer',
+        totalReports: 0,
+      },
+      hasChild: false,
+      hasParent: true,
+      children: [],
+    },
+    {
+      id: 1444,
+      entity: {
+        id: 1444,
+        avatar: avatarPersonnel,
+        name: 'John medis',
+        title: 'IT Officer',
+        totalReports: 0,
+      },
+      hasChild: false,
+      hasParent: true,
+      children: [],
+    }],
+  }],
+}

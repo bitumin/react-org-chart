@@ -6,8 +6,33 @@ const render = require('./render')
 const defaultConfig = require('./config')
 
 module.exports = {
-  init,
+  initComponent,
 }
+
+function initComponent(props) {
+  const {
+    id,
+    downloadImageId,
+    downloadPdfId,
+    zoomInId,
+    zoomOutId,
+    zoomExtentId,
+    tree,
+    ...options
+  } = props
+
+  init({
+    id: `#${id}`,
+    downloadImageId: `#${downloadImageId}`,
+    downloadPdfId: `#${downloadPdfId}`,
+    zoomInId: zoomInId,
+    zoomOutId: zoomOutId,
+    zoomExtentId: zoomExtentId,
+    data: tree,
+    ...options,
+  })
+}
+
 
 function init(options) {
   // Merge options with the default config

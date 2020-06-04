@@ -1,5 +1,6 @@
+let _ = require('lodash')
 const { createElement, PureComponent } = require('react')
-const { init } = require('../chart')
+const { initComponent } = require('../chart')
 
 class OrgChart extends PureComponent {
   render() {
@@ -17,29 +18,13 @@ class OrgChart extends PureComponent {
     zoomExtentId: 'zoom-extent',
     tree: {}
   }
-
+  componentDidUpdate(prevProps) {
+    if (_.get(prevProps, 'tree.id') !== _.get(this, 'props.tree.id')) {
+      initComponent(this.props)
+    }
+  }
   componentDidMount() {
-    const {
-      id,
-      downloadImageId,
-      downloadPdfId,
-      zoomInId,
-      zoomOutId,
-      zoomExtentId,
-      tree,
-      ...options
-    } = this.props
-
-    init({
-      id: `#${id}`,
-      downloadImageId: `#${downloadImageId}`,
-      downloadPdfId: `#${downloadPdfId}`,
-      zoomInId: zoomInId,
-      zoomOutId: zoomOutId,
-      zoomExtentId: zoomExtentId,
-      data: tree,
-      ...options,
-    })
+    initComponent(this.props)
   }
 }
 
