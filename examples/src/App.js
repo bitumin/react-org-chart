@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import OrgChart from '@smartprocure/react-org-chart'
 import { BrowserRouter, Route } from 'react-router-dom'
-import { tree, tree1, tree2, tree3, tree4 } from './Tree'
+import { tree } from './Tree'
 import avatarPersonnel from './assets/avatar-personnel.svg'
 
 export default class App extends React.Component {
@@ -11,74 +11,23 @@ export default class App extends React.Component {
 
     this.state = {
       tree: tree,
-      downloadingChart: false,
+      // downloadingChart: false,
       config: {},
     }
   }
 
-  getChild = id => {
-    switch (id) {
-      case 100:
-        return tree1
-      case 36:
-        return tree2
-      case 56:
-        return tree3
-      case 25:
-        return tree4
-      default:
-        return console.log('no children')
-    }
-  }
+  // handleDownload = () => {
+  //   this.setState({ downloadingChart: false })
+  // }
 
-  getParent = d => {
-    if (d.id === 100) {
-      return {
-        id: 500,
-        entity: {
-          id: 500,
-          avatar: avatarPersonnel,
-          department: '',
-          name: 'Pascal ruth',
-          title: 'Member',
-          totalReports: 1,
-        },
-        hasChild: false,
-        hasParent: true,
-        children: [d],
-      }
-    } else if (d.id === 500) {
-      return {
-        id: 1,
-        entity: {
-          id: 1,
-          avatar: avatarPersonnel,
-          department: '',
-          name: 'Bryce joe',
-          title: 'Director',
-          totalReports: 1,
-        },
-        hasChild: false,
-        hasParent: false,
-        children: [d],
-      }
-    } else {
-      return d
-    }
-  }
+  // handleOnChangeConfig = config => {
+  //   this.setState({ config: config })
+  // }
 
-  handleDownload = () => {
-    this.setState({ downloadingChart: false })
-  }
-
-  handleOnChangeConfig = config => {
-    this.setState({ config: config })
-  }
-
-  handleLoadConfig = () => {
-    const { config } = this.state
-    return config
-  }
+  // handleLoadConfig = () => {
+  //   const { config } = this.state
+  //   return config
+  // }
 
   render() {
     const { tree, downloadingChart } = this.state
@@ -96,13 +45,19 @@ export default class App extends React.Component {
                 className="btn btn-outline-primary zoom-button"
                 id="zoom-in"
               >
-                +
+                Zoom In
               </button>
               <button
                 className="btn btn-outline-primary zoom-button"
                 id="zoom-out"
               >
-                -
+                Zoom Out
+              </button>
+              <button
+                className="btn btn-outline-primary zoom-button"
+                id="zoom-extent"
+              >
+                Reset
               </button>
             </div>
             <div className="download-buttons">
@@ -122,31 +77,33 @@ export default class App extends React.Component {
             </div>
             <OrgChart
               tree={tree}
-              downloadImageId={downloadImageId}
-              downloadPdfId={downloadPdfId}
-              onConfigChange={config => {
-                this.handleOnChangeConfig(config)
-              }}
-              loadConfig={d => {
-                let configuration = this.handleLoadConfig(d)
-                if (configuration) {
-                  return configuration
-                }
-              }}
-              downlowdedOrgChart={d => {
-                this.handleDownload()
-              }}
+              // downloadImageId={downloadImageId}
+              // downloadPdfId={downloadPdfId}
+              // onConfigChange={config => {
+              //   this.handleOnChangeConfig(config)
+              // }}
+              onConfigChange={config => this.setState({ config })}
+              loadConfig={() => this.state.config}
+              // loadConfig={d => {
+              //   let configuration = this.handleLoadConfig(d)
+              //   if (configuration) {
+              //     return configuration
+              //   }
+              // }}
+              // downlowdedOrgChart={d => {
+              //   this.handleDownload()
+              // }}
               loadImage={d => {
                 return Promise.resolve(avatarPersonnel)
               }}
-              loadParent={d => {
-                const parentData = this.getParent(d)
-                return parentData
-              }}
-              loadChildren={d => {
-                const childrenData = this.getChild(d.id)
-                return childrenData
-              }}
+              // loadParent={d => {
+              //   const parentData = this.getParent(d)
+              //   return parentData
+              // }}
+              // loadChildren={d => {
+              //   const childrenData = this.getChild(d.id)
+              //   return childrenData
+              // }}
             />
           </React.Fragment>
         </Route>

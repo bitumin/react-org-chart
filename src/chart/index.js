@@ -65,7 +65,7 @@ function init(options) {
     .nodeSize([nodeWidth + nodeSpacing, nodeHeight + nodeSpacing])
 
   // Calculate width of a node with expanded children
-  const childrenWidth = parseInt((treeData.children.length * nodeWidth) / 2)
+  // const childrenWidth = parseInt((treeData.children.length * nodeWidth) / 2)
 
   // <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" xml:space="preserve" viewBox="0 0 193 260" enable-background=" new 0 0 193 260" height="260" width="193"
   // Add svg root for d3
@@ -84,7 +84,7 @@ function init(options) {
     .attr('height', elemHeight)
 
   // Graph center point
-  const centerPoint = childrenWidth + (elemWidth - childrenWidth * 2) / 2 - nodeWidth / 2
+  const centerPoint = elemWidth / 2 - nodeWidth / 2
 
   // Add our base svg group to transform when a user zooms/pans
   const svg = svgroot
@@ -122,7 +122,7 @@ function init(options) {
   // Defined zoom behavior
   var zoom = d3.behavior
     .zoom()
-    .scaleExtent([0.1, 2])
+    .scaleExtent([0.1, 1.5])
     .duration(50)
     .on('zoom', zoomed)
 
@@ -165,11 +165,13 @@ function init(options) {
       const {
         nodeLeftX,
         nodeRightX,
+        nodeWidth,
         nodeY,
         elemHeight,
         elemWidth,
       } = latestConfig
 
+      const centerPoint = elemWidth / 2 - nodeWidth / 2
       const svgWidth = nodeLeftX + nodeRightX
       const svgHeight = nodeY + nodeHeight * 2 + 48
 
@@ -178,7 +180,7 @@ function init(options) {
       const chooseScale = scaleX < scaleY ? scaleX : scaleY
       let scale =
         svgWidth > elemWidth || svgHeight > elemHeight ? chooseScale : 1
-      let translateX = nodeLeftX * scale + margin.left / 2
+      let translateX = nodeLeftX * scale + nodeWidth / 2
 
       if (svgWidth > elemWidth || svgHeight > elemHeight) {
         //If width is more than height
@@ -186,12 +188,10 @@ function init(options) {
           interpolateZoom([translateX, 48], scale)
           //If height is more than width
         } else if (scaleX > scaleY) {
-          translateX = elemWidth / 2 - margin.left / 2
-          interpolateZoom([translateX, 48], scale)
+          interpolateZoom([centerPoint, 48], scale)
         }
       } else {
-        translateX = elemWidth / 2 - margin.left / 2
-        interpolateZoom([translateX, 48], scale)
+        interpolateZoom([centerPoint, 48], scale)
       }
 
       return
