@@ -27,10 +27,21 @@ let getCursorForNode = data =>
     ? 'pointer'
     : 'default'
 
+let customOnClick = (fn, onClick, config) => data => {
+  if (_.isFunction(fn)) {
+    if (fn(data, d3.event)) {
+      onClick(config)
+    } else {
+      d3.event.stopPropagation()
+    }
+  }
+}
+
 module.exports = {
   getName,
   getTitle,
   getSubTitle,
   getCount,
   getCursorForNode,
+  customOnClick
 }

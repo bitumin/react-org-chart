@@ -151,11 +151,7 @@ function render(config) {
     .text(d => getName
       ? getName(d, true, nameTruncateLength)
       : helpers.getName(d, true, nameTruncateLength))
-    .on('click', data => {
-      if (onNameClick) {
-        onNameClick(data, d3.event)
-      }
-    })
+    .on('click', helpers.customOnClick(onNameClick, onClick, config))
 
   // Title
   nodeEnter
@@ -170,11 +166,7 @@ function render(config) {
     .text(d => getTitle
       ? getTitle(d, true, titleTruncateLength)
       : helpers.getTitle(d, true, titleTruncateLength))
-    .on('click', data => {
-      if (onTitleClick) {
-        onTitleClick(data, d3.event)
-      }
-    })
+    .on('click', helpers.customOnClick(onTitleClick, onClick, config))
 
   // SubTitle
   nodeEnter
@@ -189,11 +181,7 @@ function render(config) {
   .text(d => getSubTitle
     ? getSubTitle(d, true, subTitleTruncateLength)
     : helpers.getSubTitle(d, true, subTitleTruncateLength))
-  .on('click', data => {
-    if (onSubTitleClick) {
-      onSubTitleClick(data, d3.event)
-    }
-  })
+  .on('click', helpers.customOnClick(onSubTitleClick, onClick, config))
 
   const heightForTitle = 60 // getHeightForText(d.entity.title)
 
@@ -209,11 +197,7 @@ function render(config) {
     .style('cursor', 'pointer')
     .style('fill', reportsColor)
     .text(d => getCount ? getCount(d, true) : helpers.getCount(d, true))
-    .on('click', data => {
-      if (onCountClick) {
-        onCountClick(data, d3.event)
-      }
-    })
+    .on('click', helpers.customOnClick(onCountClick, onClick, config))
 
   // Entity's Avatar
   nodeEnter
@@ -246,11 +230,7 @@ function render(config) {
     .attr('class', ENTITY_LINK_CLASS)
     .attr('display', d => (d.entity.link ? '' : 'none'))
     .attr('xlink:href', d => d.entity.link)
-    .on('click', data => {
-      if (onEntityLinkClick) {
-        onEntityLinkClick(data, d3.event)
-      }
-    })
+    .on('click', helpers.customOnClick(onEntityLinkClick, onClick, config))
 
   iconLink({
     svg: nodeLink,
