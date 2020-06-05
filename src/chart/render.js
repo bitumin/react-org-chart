@@ -153,7 +153,6 @@ function render(config) {
       : helpers.getName(d, true, nameTruncateLength))
     .on('click', data => {
       if (onNameClick) {
-        d3.event.stopPropagation()
         onNameClick(data, d3.event)
       }
     })
@@ -173,7 +172,6 @@ function render(config) {
       : helpers.getTitle(d, true, titleTruncateLength))
     .on('click', data => {
       if (onTitleClick) {
-        d3.event.stopPropagation()
         onTitleClick(data, d3.event)
       }
     })
@@ -193,7 +191,6 @@ function render(config) {
     : helpers.getSubTitle(d, true, subTitleTruncateLength))
   .on('click', data => {
     if (onSubTitleClick) {
-      d3.event.stopPropagation()
       onSubTitleClick(data, d3.event)
     }
   })
@@ -214,7 +211,6 @@ function render(config) {
     .text(d => getCount ? getCount(d, true) : helpers.getCount(d, true))
     .on('click', data => {
       if (onCountClick) {
-        d3.event.stopPropagation()
         onCountClick(data, d3.event)
       }
     })
@@ -251,7 +247,6 @@ function render(config) {
     .attr('display', d => (d.entity.link ? '' : 'none'))
     .attr('xlink:href', d => d.entity.link)
     .on('click', data => {
-      d3.event.stopPropagation()
       if (onEntityLinkClick) {
         onEntityLinkClick(data, d3.event)
       }
