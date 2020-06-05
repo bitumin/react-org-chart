@@ -84,7 +84,7 @@ function init(options) {
     .attr('height', elemHeight)
 
   // Graph center point
-  const centerPoint = elemWidth / 2 - nodeWidth / 2
+  const centerPoint = elemWidth / 2 - nodeWidth / 2 - margin.left / 2
 
   // Add our base svg group to transform when a user zooms/pans
   const svg = svgroot
@@ -157,21 +157,20 @@ function init(options) {
       })
   }
 
-  // Zoom on button click
-  function zoomClick() {
-    // Zoom extent to fit svg on the screen
-    if (this.id === zoomExtentId) {
-      const latestConfig = loadConfig()
+  // Zoom extent to fit svg on the screen
+  function zoomReset() {
+    const latestConfig = loadConfig()
       const {
         nodeLeftX,
         nodeRightX,
         nodeWidth,
         nodeY,
+        margin,
         elemHeight,
         elemWidth,
       } = latestConfig
 
-      const centerPoint = elemWidth / 2 - nodeWidth / 2
+      const centerPoint = elemWidth / 2 - nodeWidth / 2 - margin.left / 2
       const svgWidth = nodeLeftX + nodeRightX
       const svgHeight = nodeY + nodeHeight * 2 + 48
 
@@ -193,9 +192,10 @@ function init(options) {
       } else {
         interpolateZoom([centerPoint, 48], scale)
       }
+  }
 
-      return
-    }
+  // Zoom on button click
+  function zoomClick() {
     var clicked = d3.event.target,
       direction = 1,
       factor = 0.2,
@@ -228,7 +228,7 @@ function init(options) {
   // d3 selects button on click
   d3.select(`#${zoomInId}`).on('click', zoomClick)
   d3.select(`#${zoomOutId}`).on('click', zoomClick)
-  d3.select(`#${zoomExtentId}`).on('click', zoomClick)
+  d3.select(`#${zoomExtentId}`).on('click', zoomReset)
 
   // Add listener for when the browser or parent node resizes
   const resize = () => {
