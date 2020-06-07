@@ -60,10 +60,6 @@ function render(config) {
     onCountClick
   } = config
 
-  // Reset nodes/links
-  tree.nodes([])
-  tree.links([])
-
   // Compute the new tree layout.
   let nodes = tree.nodes(treeData).reverse()
   let links = tree.links(nodes)

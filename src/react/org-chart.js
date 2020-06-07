@@ -10,11 +10,11 @@ class OrgChart extends PureComponent {
 
   static defaultProps = {
     id: 'react-org-chart',
-    downloadImageId: 'download-image',
-    downloadPdfId: 'download-pdf',
-    zoomInId: 'zoom-in',
-    zoomOutId: 'zoom-out',
-    zoomExtentId: 'zoom-extent',
+    downloadImageId: 'org-chart-download-image',
+    downloadPdfId: 'org-chart-download-pdf',
+    zoomInId: 'org-chart-zoom-in',
+    zoomOutId: 'org-chart-zoom-out',
+    zoomExtentId: 'org-chart-zoom-extent',
     tree: {}
   }
 
