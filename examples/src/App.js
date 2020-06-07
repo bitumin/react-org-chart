@@ -39,7 +39,7 @@ export default class App extends React.Component {
     return (
       <BrowserRouter basename="/react-org-chart">
         <Route exact path="/">
-          <React.Fragment>
+          <>
             <div className="org-chart-zoom-buttons">
               <button
                 className="btn btn-outline-primary org-chart-zoom-button"
@@ -105,7 +105,7 @@ export default class App extends React.Component {
                 return childrenData
               }}
             />
-          </React.Fragment>
+          </>
         </Route>
       </BrowserRouter>
     )
