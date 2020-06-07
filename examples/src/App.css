@@ -27,19 +27,19 @@ body {
   fill: #409cf9 !important;
 }
 
-.zoom-buttons {
+.org-chart-zoom-buttons {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.download-buttons {
+.org-chart-download-buttons {
   position: absolute;
   top: 0;
   right: 0;
 }
 
-.zoom-button {
+.org-chart-zoom-button {
   width: 100px;
   height: 40px;
   display: block !important;

@@ -11,60 +11,60 @@ export default class App extends React.Component {
 
     this.state = {
       tree: tree,
-      // downloadingChart: false,
+      downloadingChart: false,
       config: {},
     }
   }
 
-  // handleDownload = () => {
-  //   this.setState({ downloadingChart: false })
-  // }
+  handleDownload = () => {
+    this.setState({ downloadingChart: false })
+  }
 
-  // handleOnChangeConfig = config => {
-  //   this.setState({ config: config })
-  // }
+  handleOnChangeConfig = config => {
+    this.setState({ config: config })
+  }
 
-  // handleLoadConfig = () => {
-  //   const { config } = this.state
-  //   return config
-  // }
+  handleLoadConfig = () => {
+    const { config } = this.state
+    return config
+  }
 
   render() {
     const { tree, downloadingChart } = this.state
 
     //For downloading org chart as image or pdf based on id
-    const downloadImageId = 'download-image'
-    const downloadPdfId = 'download-pdf'
+    const downloadPdfId = 'org-chart-download-pdf'
+    const downloadImageId = 'org-chart-download-image'
 
     return (
       <BrowserRouter basename="/react-org-chart">
         <Route exact path="/">
           <React.Fragment>
-            <div className="zoom-buttons">
+            <div className="org-chart-zoom-buttons">
               <button
-                className="btn btn-outline-primary zoom-button"
-                id="zoom-in"
+                className="btn btn-outline-primary org-chart-zoom-button"
+                id="org-chart-zoom-in"
               >
                 Zoom In
               </button>
               <button
-                className="btn btn-outline-primary zoom-button"
-                id="zoom-out"
+                className="btn btn-outline-primary org-chart-zoom-button"
+                id="org-chart-zoom-out"
               >
                 Zoom Out
               </button>
               <button
-                className="btn btn-outline-primary zoom-button"
-                id="zoom-extent"
+                className="btn btn-outline-primary org-chart-zoom-button"
+                id="org-chart-zoom-extent"
               >
                 Reset
               </button>
             </div>
-            <div className="download-buttons">
-              <button className="btn btn-outline-primary" id="download-image">
+            <div className="org-chart-download-buttons">
+              <button className="btn btn-outline-primary" id="org-chart-download-image">
                 Download as image
               </button>
-              <button className="btn btn-outline-primary" id="download-pdf">
+              <button className="btn btn-outline-primary" id="org-chart-download-pdf">
                 Download as PDF
               </button>
               <a
@@ -77,33 +77,33 @@ export default class App extends React.Component {
             </div>
             <OrgChart
               tree={tree}
-              // downloadImageId={downloadImageId}
-              // downloadPdfId={downloadPdfId}
-              // onConfigChange={config => {
-              //   this.handleOnChangeConfig(config)
-              // }}
+              downloadPdfId={downloadPdfId}
+              downloadImageId={downloadImageId}
+              onConfigChange={config => {
+                this.handleOnChangeConfig(config)
+              }}
               onConfigChange={config => this.setState({ config })}
               loadConfig={() => this.state.config}
-              // loadConfig={d => {
-              //   let configuration = this.handleLoadConfig(d)
-              //   if (configuration) {
-              //     return configuration
-              //   }
-              // }}
-              // downlowdedOrgChart={d => {
-              //   this.handleDownload()
-              // }}
+              loadConfig={d => {
+                let configuration = this.handleLoadConfig(d)
+                if (configuration) {
+                  return configuration
+                }
+              }}
+              downlowdedOrgChart={d => {
+                this.handleDownload()
+              }}
               loadImage={d => {
                 return Promise.resolve(avatarPersonnel)
               }}
-              // loadParent={d => {
-              //   const parentData = this.getParent(d)
-              //   return parentData
-              // }}
-              // loadChildren={d => {
-              //   const childrenData = this.getChild(d.id)
-              //   return childrenData
-              // }}
+              loadParent={d => {
+                const parentData = this.getParent(d)
+                return parentData
+              }}
+              loadChildren={d => {
+                const childrenData = this.getChild(d.id)
+                return childrenData
+              }}
             />
           </React.Fragment>
         </Route>
