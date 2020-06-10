@@ -20,6 +20,9 @@ body {
 .org-chart-entity-name {
   font-weight: 500;
 }
+.org-chart-entity-title {
+  font-weight: 600;
+}
 .org-chart-entity-link:hover g {
   fill: #409cf9 !important;
 }

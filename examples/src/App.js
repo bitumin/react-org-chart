@@ -77,19 +77,11 @@ export default class App extends React.Component {
             </div>
             <OrgChart
               tree={tree}
+              nameTruncateLength={40}
               downloadPdfId={downloadPdfId}
               downloadImageId={downloadImageId}
-              onConfigChange={config => {
-                this.handleOnChangeConfig(config)
-              }}
               onConfigChange={config => this.setState({ config })}
               loadConfig={() => this.state.config}
-              loadConfig={d => {
-                let configuration = this.handleLoadConfig(d)
-                if (configuration) {
-                  return configuration
-                }
-              }}
               downlowdedOrgChart={d => {
                 this.handleDownload()
               }}

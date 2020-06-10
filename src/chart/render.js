@@ -47,9 +47,12 @@ function render(config) {
     nameTruncateLength = 30,
     titleFontSize = 13,
     titleTruncateLength = 18,
-    subTitleFontSize = 14,
+    titleYTopDistance = 42,
+    subTitleFontSize = 12,
     subTitleTruncateLength = 17,
+    subtitleYTopDistance = 63,
     countFontSize = 14,
+    countYTopDistance = 72,
     getName,
     getTitle,
     getSubTitle,
@@ -137,7 +140,7 @@ function render(config) {
   // Entity's Name
   nodeEnter
     .append('text')
-    .attr('class', ENTITY_NAME_CLASS + ' unedited')
+    .attr('class', `${ENTITY_NAME_CLASS} unedited`)
     .attr('x', namePos.x)
     .attr('y', namePos.y)
     .attr('dy', '.3em')
@@ -152,9 +155,9 @@ function render(config) {
   // Title
   nodeEnter
     .append('text')
-    .attr('class', ENTITY_TITLE_CLASS + ' unedited')
+    .attr('class', `${ENTITY_TITLE_CLASS} unedited`)
     .attr('x', nodeWidth / 2)
-    .attr('y', namePos.y + nodePaddingY * 2.4)
+    .attr('y', namePos.y + nodePaddingY + titleYTopDistance)
     .attr('dy', '0.1em')
     .style('font-size', titleFontSize)
     .style('cursor', 'pointer')
@@ -167,9 +170,9 @@ function render(config) {
   // SubTitle
   nodeEnter
   .append('text')
-  .attr('class', ENTITY_SUB_TITLE_CLASS + ' unedited')
+  .attr('class', `${ENTITY_SUB_TITLE_CLASS} unedited`)
   .attr('x', nodeWidth / 2)
-  .attr('y', namePos.y + nodePaddingY * 3.9)
+  .attr('y', namePos.y + nodePaddingY + subtitleYTopDistance)
   .attr('dy', '0.1em')
   .style('font-size', subTitleFontSize)
   .style('cursor', 'pointer')
@@ -179,14 +182,12 @@ function render(config) {
     : helpers.getSubTitle(d, true, subTitleTruncateLength))
   .on('click', helpers.customOnClick(onSubTitleClick, onClick, config))
 
-  const heightForTitle = 60 // getHeightForText(d.entity.title)
-
   // Count
   nodeEnter
     .append('text')
-    .attr('class', COUNTS_CLASS + ' unedited')
+    .attr('class', `${COUNTS_CLASS} unedited`)
     .attr('x', nodeWidth / 2)
-    .attr('y', namePos.y + nodePaddingY + heightForTitle)
+    .attr('y', namePos.y + nodePaddingY + countYTopDistance)
     .attr('dy', '.9em')
     .style('font-size', countFontSize)
     .style('font-weight', 400)
