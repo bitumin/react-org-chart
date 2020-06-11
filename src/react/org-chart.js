@@ -26,7 +26,8 @@ class OrgChart extends PureComponent {
       downloadPdfId,
       zoomInId,
       zoomOutId,
-      zoomExtentId,
+      scaleToFitId,
+      resetId,
       tree,
       ...options
     } = this.props
@@ -37,7 +38,8 @@ class OrgChart extends PureComponent {
       downloadPdfId: `#${downloadPdfId}`,
       zoomInId: zoomInId,
       zoomOutId: zoomOutId,
-      zoomExtentId: zoomExtentId,
+      scaleToFitId: scaleToFitId,
+      resetId: resetId,
       data: tree,
       ...options,
     })
