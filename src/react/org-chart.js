@@ -14,7 +14,8 @@ class OrgChart extends PureComponent {
     downloadPdfId: 'org-chart-download-pdf',
     zoomInId: 'org-chart-zoom-in',
     zoomOutId: 'org-chart-zoom-out',
-    zoomExtentId: 'org-chart-zoom-extent',
+    scaleToFitId: 'org-chart-scale-to-fit',
+    resetId: 'org-chart-reset',
     tree: {}
   }
 

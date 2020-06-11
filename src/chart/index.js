@@ -33,7 +33,8 @@ function init(options) {
     shouldResize,
     zoomInId,
     zoomOutId,
-    zoomExtentId,
+    scaleToFitId,
+    resetId,
     loadConfig,
   } = config
 
@@ -158,7 +159,7 @@ function init(options) {
   }
 
   // Zoom extent to fit svg on the screen
-  function zoomReset() {
+  function scaleToFit() {
     const latestConfig = loadConfig()
       const {
         nodeLeftX,
@@ -192,6 +193,17 @@ function init(options) {
       } else {
         interpolateZoom([centerPoint, 48], scale)
       }
+  }
+
+  function reset() {
+    // Collapse all of the children on initial load
+    interpolateZoom([centerPoint, 48], 1)
+
+    // Collapse all of the children on initial load
+    if (treeData && treeData.children) {
+      treeData.children.forEach(collapse)
+      render(config)
+    }
   }
 
   // Zoom on button click
@@ -228,7 +240,8 @@ function init(options) {
   // d3 selects button on click
   d3.select(`#${zoomInId}`).on('click', zoomClick)
   d3.select(`#${zoomOutId}`).on('click', zoomClick)
-  d3.select(`#${zoomExtentId}`).on('click', zoomReset)
+  d3.select(`#${scaleToFitId}`).on('click', scaleToFit)
+  d3.select(`#${resetId}`).on('click', reset)
 
   // Add listener for when the browser or parent node resizes
   const resize = () => {

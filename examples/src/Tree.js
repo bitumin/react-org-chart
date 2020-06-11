@@ -5,7 +5,7 @@ export const tree = {
   entity: {
     id: 100,
     avatar: avatarPersonnel,
-    name: 'Henry monger',
+    name: 'Henry Monger',
     title: 'IT Department',
     subTitle: 'CTO',
     totalReports: 3,
@@ -43,7 +43,7 @@ export const tree = {
               entity: {
                 id: 102,
                 avatar: avatarPersonnel,
-                name: 'Hendy kinger',
+                name: 'Hendy Kinger',
                 title: 'Manager',
                 totalReports: 0,
               },
@@ -56,7 +56,7 @@ export const tree = {
               entity: {
                 id: 455,
                 avatar: avatarPersonnel,
-                name: 'Kate baker',
+                name: 'Kate Baker',
                 title: 'IT Officer',
                 totalReports: 0,
               },
@@ -71,7 +71,7 @@ export const tree = {
           entity: {
             id: 66,
             avatar: avatarPersonnel,
-            name: 'John doe',
+            name: 'John Doe',
             title: 'Developer',
             totalReports: 0,
             link: 'https://github.com/smartprocure/react-org-chart',
@@ -85,7 +85,7 @@ export const tree = {
           entity: {
             id: 76,
             avatar: avatarPersonnel,
-            name: 'Emilia rogers',
+            name: 'Emilia Rogers',
             title: 'Developer',
             totalReports: 0,
             link: 'https://github.com/smartprocure/react-org-chart',
@@ -99,7 +99,7 @@ export const tree = {
           entity: {
             id: 60,
             avatar: avatarPersonnel,
-            name: 'Ellen cott',
+            name: 'Ellen Cott',
             title: 'IT Officer',
             totalReports: 0,
           },
@@ -114,7 +114,7 @@ export const tree = {
       entity: {
         id: 32,
         avatar: avatarPersonnel,
-        name: 'Emanuel walker',
+        name: 'Emanuel Walker',
         title: 'IT Specialist',
         totalReports: 1,
       },
@@ -139,7 +139,7 @@ export const tree = {
       entity: {
         id: 25,
         avatar: avatarPersonnel,
-        name: 'Kerry peter',
+        name: 'Kerry Peter',
         title: 'IT Specialist',
         totalReports: 2,
       },
@@ -151,7 +151,7 @@ export const tree = {
           entity: {
             id: 70,
             avatar: avatarPersonnel,
-            name: 'Kenneth dom',
+            name: 'Kenneth Dom',
             title: 'IT Officer',
             totalReports: 0,
           },
@@ -164,7 +164,7 @@ export const tree = {
           entity: {
             id: 45,
             avatar: avatarPersonnel,
-            name: 'Kin baker',
+            name: 'Kin Baker',
             title: 'IT Officer',
             totalReports: 0,
           },
