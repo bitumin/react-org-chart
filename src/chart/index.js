@@ -36,6 +36,8 @@ function init(options) {
     scaleToFitId,
     resetId,
     loadConfig,
+    disableCanvasMouseWheelZoom,
+    disableCanvasMouseMove,
   } = config
 
   // Calculate how many pixel nodes to be spaced based on the
@@ -127,8 +129,21 @@ function init(options) {
     .duration(50)
     .on('zoom', zoomed)
 
-  // Attach zoom behavior to the svg root
-  svgroot.call(zoom)
+  let zoomedRoot = svgroot.call(zoom)
+
+  // Disable the Mouse Wheel Zooming
+  if (disableCanvasMouseWheelZoom) {
+    zoomedRoot.on("wheel.zoom", null)
+  }
+
+  // Disable the Mouse Wheel Canvas Content Moving
+  if (disableCanvasMouseMove) {
+    zoomedRoot
+      .on("mousedown.zoom", null)
+      .on("touchstart.zoom", null)
+      .on("touchmove.zoom", null)
+      .on("touchend.zoom", null)
+  }
 
   // Define the point of origin for zoom transformations
   zoom.translate([ centerPoint, 20 ])
@@ -196,7 +211,7 @@ function init(options) {
   }
 
   function reset() {
-    // Collapse all of the children on initial load
+    // Center to the original center point
     interpolateZoom([centerPoint, 48], 1)
 
     // Collapse all of the children on initial load

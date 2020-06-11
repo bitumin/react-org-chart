@@ -88,7 +88,7 @@ export default class App extends React.Component {
               downloadImageId={downloadImageId}
               onConfigChange={config => this.setState({ config })}
               loadConfig={() => this.state.config}
-              downlowdedOrgChart={d => {
+              downloadedOrgChart={d => {
                 this.handleDownload()
               }}
               loadImage={d => {

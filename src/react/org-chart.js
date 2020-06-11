@@ -16,6 +16,8 @@ class OrgChart extends PureComponent {
     zoomOutId: 'org-chart-zoom-out',
     scaleToFitId: 'org-chart-scale-to-fit',
     resetId: 'org-chart-reset',
+    disableCanvasMouseMove: false,
+    disableCanvasMouseWheelZoom: false,
     tree: {}
   }
 
@@ -28,6 +30,8 @@ class OrgChart extends PureComponent {
       zoomOutId,
       scaleToFitId,
       resetId,
+      disableCanvasMouseMove,
+      disableCanvasMouseWheelZoom,
       tree,
       ...options
     } = this.props
@@ -41,6 +45,8 @@ class OrgChart extends PureComponent {
       scaleToFitId: scaleToFitId,
       resetId: resetId,
       data: tree,
+      disableCanvasMouseMove,
+      disableCanvasMouseWheelZoom,
       ...options,
     })
   }

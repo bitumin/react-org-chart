@@ -60,7 +60,7 @@ function render(config) {
     onNameClick,
     onTitleClick,
     onSubTitleClick,
-    onCountClick
+    onCountClick,
   } = config
 
   // Compute the new tree layout.

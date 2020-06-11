@@ -4,7 +4,7 @@ module.exports = exportOrgChartImage
 
 function exportOrgChartImage({ loadConfig }) {
   const config = loadConfig()
-  const { id, downlowdedOrgChart, nodeLeftX, nodeRightX, nodeY } = config
+  const { id, downloadedOrgChart: downloadedOrgChart, nodeLeftX, nodeRightX, nodeY } = config
   var w = nodeLeftX + nodeRightX
   var h = nodeY
   var ratio = w > 9000 ? 1 : 2
@@ -64,6 +64,6 @@ function exportOrgChartImage({ loadConfig }) {
       a.href = url
       a.click()
     })
-    downlowdedOrgChart(true)
+    downloadedOrgChart(true)
   }
 }

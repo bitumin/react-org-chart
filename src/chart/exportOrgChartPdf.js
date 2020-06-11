@@ -6,7 +6,7 @@ function exportOrgChartPdf({ loadConfig }) {
   const config = loadConfig()
   const {
     id,
-    downlowdedOrgChart,
+    downloadedOrgChart,
     nodeLeftX,
     nodeRightX,
     nodeY,
@@ -94,6 +94,6 @@ function exportOrgChartPdf({ loadConfig }) {
     const pdf = new jsPDF('l', 'px', [a4Width, a4Height])
     pdf.addImage(canvasData, 'JPEG', 15, 2, width, height)
     pdf.save('Orgchart.pdf')
-    downlowdedOrgChart(true)
+    downloadedOrgChart(true)
   }
 }
