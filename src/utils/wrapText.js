@@ -1,7 +1,23 @@
 const d3 = require('d3')
 
+let getTruncatedText = (text, curWidth, maxWordLength, truncateStringSuffix='...') => {
+  let result = text
+  if (curWidth + truncateStringSuffix.length >= maxWordLength) {
+    result = `${text.slice(0, maxWordLength - truncateStringSuffix.length)}${truncateStringSuffix}`
+  }
+  return result
+}
+
 // One way of achieving text-wrapping capability in SVG
-module.exports = function wrapText(text, width) {
+// Text is broken down to words, each word is added to a line and then the lines width is checked
+// If the line width is less than the max we move to the next word, if more we add new line etc
+// until the max number of lines is reached.
+module.exports = function wrapText(
+  text,
+  maxLineWidth,
+  maxNumberOfLines=1,
+  maxWordLength=17
+) {
   if (!text.length) {
     return ''
   }
@@ -20,6 +36,7 @@ module.exports = function wrapText(text, width) {
       .reverse()
 
     let lineNumber = 0
+    let curLineWidth
     let word
     let line = []
     let tspan = text
@@ -30,21 +47,32 @@ module.exports = function wrapText(text, width) {
       .attr('y', y)
       .attr('dy', dy + 'em')
 
-    while ((word = words.pop())) {
+    while (lineNumber < maxNumberOfLines && words.length) {
+      word = words.pop()
       line.push(word)
       tspan.text(line.join(' '))
 
-      if (tspan.node().getComputedTextLength() > width) {
-        line.pop()
-        tspan.text(line.join(' '))
-        line = [word]
-        tspan = text
-          .append('tspan')
-          .style('text-anchor', 'middle')
-          .attr('x', x)
-          .attr('y', y)
-          .attr('dy', ++lineNumber * lineHeight + dy + 'em')
-          .text(word)
+      curLineWidth = tspan.node().getComputedTextLength()
+
+      if (curLineWidth > maxLineWidth) {
+        if (lineNumber + 1 === maxNumberOfLines) {
+          tspan.text(getTruncatedText(line.join(' '), curLineWidth, maxWordLength))
+          break
+        } else {
+          line.pop()
+          tspan.text(line.join(' '))
+          line = [word]
+          tspan = text
+            .append('tspan')
+            .style('text-anchor', 'middle')
+            .attr('x', x)
+            .attr('y', y)
+            .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+            .text(getTruncatedText(word, curLineWidth, maxWordLength))
+        }
+        if (word.length > maxWordLength) {
+          break
+        }
       }
     }
 

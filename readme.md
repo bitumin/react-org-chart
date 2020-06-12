@@ -36,10 +36,10 @@ What we added:
 | tree              | `Object`   | Required | Nested data model with some of all the employees in the company | See sample below |
 | onConfigChange    | `Function` | Required | To set the latest config to state on change                    | See usage below                                         |
 | loadConfig        | `Function` | Required | Pass latest config from state to OrgChart                      | See usage below                                      |
-| getName           | `Function` | Optional | Function to get custom formatting / values for the name. Called with (`data`, `truncate`, `truncateLength`) arguments | See usage below |
-| getTitle          | `Function` | Optional | Function to get custom formatting / values for the title. Called with (`data`, `truncate`, `truncateLength`) arguments | See usage below |
-| getSubTitle       | `Function` | Optional | Function to get custom formatting / values for the sub title. Called with (`data`, `truncate`, `truncateLength`) arguments | See usage below |
-| getCount          | `Function` | Optional | Function to get custom formatting / values for the count. Called with (`data`, `truncate`, `truncateLength`) arguments | See usage below |
+| getName           | `Function` | Optional | Function to get custom formatting / values for the name. Called with (`data`) arguments | See usage below |
+| getTitle          | `Function` | Optional | Function to get custom formatting / values for the title. Called with (`data`) arguments | See usage below |
+| getSubTitle       | `Function` | Optional | Function to get custom formatting / values for the sub title. Called with (`data`) arguments | See usage below |
+| getCount          | `Function` | Optional | Function to get custom formatting / values for the count. Called with (`data`) arguments | See usage below |
 | onNameClick       | `Function` | Optional | Function to call on click of the name. Called with (`data`) arguments | See usage below |
 | onTitleClick      | `Function` | Optional | Function to call on click of the title. Called with (`data`) arguments | See usage below |
 | onSubTitleClick   | `Function` | Optional | Function to call on click of the sub title. Called with (`data`) arguments | See usage below |
@@ -48,9 +48,6 @@ What we added:
 | titleFontSize     | `Number`   | Optional | The font size of the title text element                        | 13                                                                |
 | subTitleFontSize  | `Number`   | Optional | The font size of the title text element                        | 14                                                                |
 | countFontSize     | `Number`   | Optional | The font size of the count text element                        | 14                                                                |
-| nameTruncateLength | `Number`   | Optional | The number of characters before we truncate the name. Name spans 2 lines.           | 30                                           |
-| titleTruncateLength | `Number`   | Optional | The number of characters before we truncate the title. Title is one line only.     | 18                                           |
-| subTitleTruncateLength | `Number`   | Optional | The number of characters before we truncate the sub title. Title is one line only.     | 17                                           |
 | nodeWidth         | `Number`   | Optional | Width of the component for each individual                     | 180                                                                |
 | nodeHeight        | `Number`   | Optional | Height of the component for each individual                    | 100                                                                |
 | nodeSpacing       | `Number`   | Optional | Spacing between each of the nodes in the chart                 | 12                                                                 |

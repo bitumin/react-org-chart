@@ -44,15 +44,13 @@ function render(config) {
     margin,
     onConfigChange,
     nameFontSize = 14,
-    nameTruncateLength = 30,
     titleFontSize = 13,
-    titleTruncateLength = 18,
     titleYTopDistance = 42,
     subTitleFontSize = 12,
-    subTitleTruncateLength = 17,
     subtitleYTopDistance = 63,
     countFontSize = 14,
     countYTopDistance = 72,
+    maxWordLength = 17,
     getName,
     getTitle,
     getSubTitle,
@@ -147,9 +145,7 @@ function render(config) {
     .style('cursor', 'pointer')
     .style('fill', nameColor)
     .style('font-size', nameFontSize)
-    .text(d => getName
-      ? getName(d, true, nameTruncateLength)
-      : helpers.getName(d, true, nameTruncateLength))
+    .text(d => _.isFunction(getName) ? getName(d) : helpers.getName(d))
     .on('click', helpers.customOnClick(onNameClick, onClick, config))
 
   // Title
@@ -162,9 +158,7 @@ function render(config) {
     .style('font-size', titleFontSize)
     .style('cursor', 'pointer')
     .style('fill', titleColor)
-    .text(d => getTitle
-      ? getTitle(d, true, titleTruncateLength)
-      : helpers.getTitle(d, true, titleTruncateLength))
+    .text(d => _.isFunction(getTitle) ? getTitle(d) : helpers.getTitle(d))
     .on('click', helpers.customOnClick(onTitleClick, onClick, config))
 
   // SubTitle
@@ -177,9 +171,7 @@ function render(config) {
   .style('font-size', subTitleFontSize)
   .style('cursor', 'pointer')
   .style('fill', titleColor)
-  .text(d => getSubTitle
-    ? getSubTitle(d, true, subTitleTruncateLength)
-    : helpers.getSubTitle(d, true, subTitleTruncateLength))
+  .text(d => _.isFunction(getSubTitle) ? getSubTitle(d) : helpers.getSubTitle(d))
   .on('click', helpers.customOnClick(onSubTitleClick, onClick, config))
 
   // Count
@@ -193,7 +185,7 @@ function render(config) {
     .style('font-weight', 400)
     .style('cursor', 'pointer')
     .style('fill', reportsColor)
-    .text(d => getCount ? getCount(d, true) : helpers.getCount(d, true))
+    .text(d => _.isFunction(getCount) ? getCount(d) : helpers.getCount(d))
     .on('click', helpers.customOnClick(onCountClick, onClick, config))
 
   // Entity's Avatar
@@ -257,20 +249,25 @@ function render(config) {
   // Update the links
   let link = svg.selectAll('path.link').data(links, d => d.target.id)
 
-  // Wrap the texts
-  const wrapWidth = 124
   _.each(
     [ENTITY_NAME_CLASS, ENTITY_TITLE_CLASS, ENTITY_SUB_TITLE_CLASS, COUNTS_CLASS],
     cssClass => {
-      svg.selectAll(`text.unedited.${cssClass}`).call(wrapText, wrapWidth)
+      svg.selectAll(`text.unedited.${cssClass}`).call(
+        wrapText,
+        nodeWidth - 12, // Adjust with some padding
+        cssClass === ENTITY_NAME_CLASS
+          ? 3 // name should wrap at 3 lines max
+          : 1, // all others have 1 line to work with
+        maxWordLength
+      )
     }
   )
 
   // Add Tooltips
-  svg.selectAll(`text.${ENTITY_NAME_CLASS}`).append('svg:title').text(d => getName ? getName(d, false) : helpers.getName(d, false))
-  svg.selectAll(`text.${ENTITY_TITLE_CLASS}`).append('svg:title').text(d => getTitle ? getTitle(d, false) : helpers.getTitle(d, false))
-  svg.selectAll(`text.${ENTITY_SUB_TITLE_CLASS}`).append('svg:title').text(d => getSubTitle ? getSubTitle(d, false) : helpers.getSubTitle(d, false))
-  svg.selectAll(`text.${COUNTS_CLASS}`).append('svg:title').text(d => getCount ? getCount(d, false) : helpers.getCount(d, false))
+  svg.selectAll(`text.${ENTITY_NAME_CLASS}`).append('svg:title').text(d => getName ? getName(d) : helpers.getName(d))
+  svg.selectAll(`text.${ENTITY_TITLE_CLASS}`).append('svg:title').text(d => getTitle ? getTitle(d) : helpers.getTitle(d))
+  svg.selectAll(`text.${ENTITY_SUB_TITLE_CLASS}`).append('svg:title').text(d => getSubTitle ? getSubTitle(d) : helpers.getSubTitle(d))
+  svg.selectAll(`text.${COUNTS_CLASS}`).append('svg:title').text(d => getCount ? getCount(d) : helpers.getCount(d))
 
   // Render lines connecting nodes
   renderLines(config)
