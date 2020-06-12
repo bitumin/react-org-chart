@@ -50,7 +50,10 @@ function render(config) {
     subtitleYTopDistance = 63,
     countFontSize = 14,
     countYTopDistance = 72,
-    maxWordLength = 17,
+    maxNameWordLength = 16,
+    maxTitleWordLength = 17,
+    maxSubTitleWordLength = 19,
+    maxCountWordLength = 17,
     getName,
     getTitle,
     getSubTitle,
@@ -250,18 +253,22 @@ function render(config) {
   let link = svg.selectAll('path.link').data(links, d => d.target.id)
 
   _.each(
-    [ENTITY_NAME_CLASS, ENTITY_TITLE_CLASS, ENTITY_SUB_TITLE_CLASS, COUNTS_CLASS],
-    cssClass => {
-      svg.selectAll(`text.unedited.${cssClass}`).call(
+    [
+      { cls: ENTITY_NAME_CLASS, max: maxNameWordLength },
+      { cls: ENTITY_TITLE_CLASS, max: maxTitleWordLength },
+      { cls: ENTITY_SUB_TITLE_CLASS, max: maxSubTitleWordLength },
+      { cls: COUNTS_CLASS, max: maxCountWordLength }
+    ],
+    ({ cls, max }) => {
+      svg.selectAll(`text.unedited.${cls}`).call(
         wrapText,
         nodeWidth - 12, // Adjust with some padding
-        cssClass === ENTITY_NAME_CLASS
+        cls === ENTITY_NAME_CLASS
           ? 3 // name should wrap at 3 lines max
           : 1, // all others have 1 line to work with
-        maxWordLength
+        max
       )
-    }
-  )
+    })
 
   // Add Tooltips
   svg.selectAll(`text.${ENTITY_NAME_CLASS}`).append('svg:title').text(d => getName ? getName(d) : helpers.getName(d))

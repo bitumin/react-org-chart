@@ -1,12 +1,7 @@
 const d3 = require('d3')
+let _ = require('lodash')
 
-let getTruncatedText = (text, maxWordLength, truncateStringSuffix='...') => {
-  let result = text
-  if (text.length + truncateStringSuffix.length >= maxWordLength) {
-    result = `${text.slice(0, maxWordLength - truncateStringSuffix.length)}${truncateStringSuffix}`
-  }
-  return result
-}
+let getTruncatedText = (text, maxWordLength) => _.truncate(text, {length: maxWordLength})
 
 // One way of achieving text-wrapping capability in SVG
 // Text is broken down to words, each word is added to a line and then the lines width is checked
