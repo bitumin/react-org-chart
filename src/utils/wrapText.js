@@ -1,8 +1,8 @@
 const d3 = require('d3')
 
-let getTruncatedText = (text, curWidth, maxWordLength, truncateStringSuffix='...') => {
+let getTruncatedText = (text, maxWordLength, truncateStringSuffix='...') => {
   let result = text
-  if (curWidth + truncateStringSuffix.length >= maxWordLength) {
+  if (text.length + truncateStringSuffix.length >= maxWordLength) {
     result = `${text.slice(0, maxWordLength - truncateStringSuffix.length)}${truncateStringSuffix}`
   }
   return result
@@ -56,7 +56,7 @@ module.exports = function wrapText(
 
       if (curLineWidth > maxLineWidth) {
         if (lineNumber + 1 === maxNumberOfLines) {
-          tspan.text(getTruncatedText(line.join(' '), curLineWidth, maxWordLength))
+          tspan.text(getTruncatedText(line.join(' '), maxWordLength))
           break
         } else {
           line.pop()
@@ -68,7 +68,7 @@ module.exports = function wrapText(
             .attr('x', x)
             .attr('y', y)
             .attr('dy', ++lineNumber * lineHeight + dy + 'em')
-            .text(getTruncatedText(word, curLineWidth, maxWordLength))
+            .text(getTruncatedText(word, maxWordLength))
         }
         if (word.length > maxWordLength) {
           break
