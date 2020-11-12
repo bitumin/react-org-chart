@@ -9,7 +9,7 @@
   "files": [
     "dist/index.js"
   ],
-  "homepage": "https://smartprocure.github.io/react-org-chart",
+  "homepage": "https://bitumin.github.io/react-org-chart",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bitumin/react-org-chart.git"
