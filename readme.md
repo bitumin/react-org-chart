@@ -157,7 +157,7 @@ render(){
 # Development
 
 ```bash
-git clone https://github.com/unicef/react-org-chart.git
+git clone https://github.com/bitumin/react-org-chart.git
 cd react-org-chart
 npm install
 ```
